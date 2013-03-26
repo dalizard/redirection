@@ -24,13 +24,13 @@ Or install it yourself as:
 Suppose there is a web app with 'Contact Us' link in the footer. We want the user to be
 redirected to the page he was on before clicking the 'Contact Us' link.
 
-``` ruby
+``` rails
 <%= link_to 'Contact us', new_contact_path(referrer_param: current_path) %>
 ```
 
 In the view we'd have:
 
-``` ruby
+``` rails
 <%= form_for ... do |f| %>
   <%= hidden_referrer_input_tag %>
   ...
