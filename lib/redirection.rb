@@ -1,7 +1,9 @@
 require "redirection/version"
 
 module Redirection
-  REFERRER_PARAM_NAME = :referrer
+  class << self
+    attr_accessor :param_name
+  end
 
   module ControllerMethods
     extend ActiveSupport::Concern
@@ -24,8 +26,8 @@ module Redirection
       #     # ...
       #   end
       #
-      def use_referrer_param_name(new_name)
-        const_set Redirection::REFERRER_PARAM_NAME, new_name.to_sym
+      def use_redirection_param(new_name)
+        Redirection.param_name = new_name.to_sym
       end
     end
 
@@ -37,8 +39,8 @@ module Redirection
     #
     #  <%= link_to my_messages_path :filter_by => 'date', referrer_param => current_path %>
     #
-    def referrer_param
-      Redirection::REFERRER_PARAM_NAME
+    def redirection_param
+      Redirection.param_name || :referrer
     end
 
     # Return the path of the current request.
